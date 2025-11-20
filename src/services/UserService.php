@@ -8,13 +8,17 @@ use InvalidArgumentException;
 class UserService
 {
     private array $users = [
-        ['id' => '1', 'name' => 'Ayla', 'email' => 'ayla@example.com'],
-        ['id' => '2', 'name' => 'Bimo', 'email' => 'bimo@example.com'],
+        ['id'=>'1','name'=>'Ayla','email'=>'ayla@example.com'],
+        ['id'=>'2','name'=>'Bimo','email'=>'bimo@example.com'],
     ];
 
-    public function listUsers(): array
+    public function listUsers(array $options = []): array
     {
-        return $this->users;
+        $users = $this->users;
+        if (($options['sortBy'] ?? null) === 'name') {
+            usort($users, fn($a, $b) => strcmp($a['name'], $b['name']));
+        }
+        return $users;
     }
 
     public function getUserById(string $id): ?array
@@ -26,7 +30,6 @@ class UserService
         }
         return null;
     }
-    
     public function validateAndAddUser(array $data): array
     {
         $name = trim($data['name'] ?? '');
