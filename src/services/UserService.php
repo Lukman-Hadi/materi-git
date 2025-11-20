@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 namespace App\Services;
+use App\Utils\EmailValidator;
+use InvalidArgumentException;
 
 class UserService
 {
@@ -23,5 +25,26 @@ class UserService
             }
         }
         return null;
+    }
+    
+    public function validateAndAddUser(array $data): array
+    {
+        $name = trim($data['name'] ?? '');
+        $email = trim($data['email'] ?? '');
+
+        if ($name === '' || $email === '') {
+            throw new InvalidArgumentException('Name or email cannot be empty');
+        }
+        if (!EmailValidator::isValid($email)) {
+            throw new InvalidArgumentException('Invalid email format');
+        }
+
+        $new = [
+            'id' => uniqid('', true),
+            'name' => $name,
+            'email' => $email,
+        ];
+        $this->users[] = $new;
+        return $new;
     }
 }
