@@ -13,7 +13,7 @@ class Logger
     public static function error(string $message, array $context = []): void
     {
         $payload = [
-            'level'     => 'error',
+            'level'     => 'Error',
             'timestamp' => date('c'),
             'message'   => $message,
             'context'   => $context,
