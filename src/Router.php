@@ -17,9 +17,6 @@ class Router
         $this->routes['POST'][$path] = $handler;
     }
 
-    // Latihan Refactor: ekstrak duplikasi register method (commit refactor).
-    // Fitur: tambahkan method PUT/DELETE (pisah commit feat).
-
     public function dispatch(string $method, string $path): void
     {
         $handler = $this->routes[$method][$path] ?? null;

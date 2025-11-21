@@ -9,7 +9,4 @@ class EmailValidator
     {
         return (bool) preg_match('/^[^\s@]+@[^\s@]+\.[^\s@]+$/', $email);
     }
-
-    // Latihan Fitur: tambahkan whitelist domain (commit feat).
-    // Formatting Prettier/PHP CS Fixer: jadikan commit terpisah (chore).
 }
